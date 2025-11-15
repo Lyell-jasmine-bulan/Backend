@@ -1,13 +1,19 @@
 /*import express from "express";
 import 'dotenv/config.js';
-import bookRoutes from "./routers/BookRoutes.js"
-import studentRoutes from "./routers/StudentRoutes.js"
+import bookRoutes from "./routers/BookRoutes.js";
+import cors from "cors"
+
 
 //init app
 const app = express();
 
+let corsOptions = {
+    origin: process.env.ORIGIN
+}
+
 //middleware
 app.use(express.json());
+app.use(cors(corsOptions));
 
 const port = 3000;
 
@@ -19,17 +25,34 @@ try{
     console.log(e);
 }
 
-app.use('/student',studentRoutes);*/
+app.use('/book',bookRoutes);
+
+
+
+app.use((req, res, next) => {
+    console.log (req.path, req.method);
+})*/
+
+
+
+
+
 
 import express from "express";
 import 'dotenv/config.js';
-import studentRoutes from "./routers/StudentRoutes.js"
+import studentRoutes from "./routers/StudentRoutes.js";
+import cors from "cors"
 
 //init app
 const app = express();
 
+let corsOptions = {
+    origin: process.env.ORIGIN
+}
+
 //middleware
 app.use(express.json());
+app.use(cors(corsOptions));
 
 const port = 3000;
 
@@ -42,3 +65,7 @@ try{
 }
 
 app.use('/student',studentRoutes);
+
+app.use((req, res, next) => {
+    console.log (req.path, req.method);
+})
