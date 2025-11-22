@@ -40,8 +40,10 @@ app.use((req, res, next) => {
 
 import express from "express";
 import 'dotenv/config.js';
+import bookRoutes from "./routers/BookRoutes.js";
 import studentRoutes from "./routers/StudentRoutes.js";
 import cors from "cors"
+import userRoutes from "./routers/UserRoutes.js";
 
 //init app
 const app = express();
@@ -52,6 +54,7 @@ let corsOptions = {
 
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 const port = 3000;
@@ -65,7 +68,9 @@ try{
 }
 
 app.use('/student',studentRoutes);
+app.use('/user',userRoutes);
+app.use('/book',bookRoutes);
 
-app.use((req, res, next) => {
+app.use((req, res,) => {
     console.log (req.path, req.method);
 })
