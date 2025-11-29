@@ -18,17 +18,22 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password}= req.body;
+    const { email: userEmail, password: userPassword } = req.body;
 
-    try{
-        const token = await UserModel.login( email, password);
-        res.status(200).json({success: true, message: users});
-    }catch(e){
-        console.log(e);
-        res.status(500).json({
+    try {
+        const loginToken = await UserModel.login(userEmail, userPassword);
+
+        return res.status(200).json({
             success: true,
-            message: [{result : "Login successful!", token}]
+            message: "Login successful!",
+            token: loginToken
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Login failed",
+            error: error.message
         });
     }
-    
-}
+};
